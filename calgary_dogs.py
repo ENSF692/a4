@@ -1,21 +1,28 @@
 # calgary_dogs.py
-# AUTHOR NAME
-#
-# A terminal-based application for computing and printing statistics based on given input.
-# Detailed specifications are provided via the Assignment 4 README file.
-# You must include the main listed below. You may add your own additional classes, functions, variables, etc. 
-# You may import any modules from the standard Python library.
-# Remember to include docstrings and comments.
+# @author: Bo Zheng Ma
+# ENSF692 A4
+# A terminal-based application for computing and printing statistics based on a dog breed.
+import pandas as pd
+import numpy as np
 
 def main():
+    df = pd.read_excel("CalgaryDogBreeds.xlsx")
+    
+    # Normalize the 'Breed' column for case-insensitive comparison
+    df['Breed'] = df['Breed'].str.upper()
 
-    # Import data here
+    # User entry, catches keyerrror if breed is not found
+    while True:
+        try:
+            breed_input = input("Please enter a dog breed: ").strip().upper()
+            
+            # Check if the breed exists in the data
+            if breed_input not in df['Breed'].values:
+                raise KeyError("Dog breed not found in the data. Please try again.")
+            break
+        except KeyError as e:
+            print(e)
 
-    print("ENSF 692 Dogs of Calgary")
-
-    # User input stage
-
-    # Data anaylsis stage
 
 if __name__ == '__main__':
     main()
